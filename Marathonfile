@@ -1,0 +1,13 @@
+name: "My application"
+outputDir: "app/build/reports/marathon"
+debug: true
+isCodeCoverageEnabled: true
+analyticsTracking: true
+vendorConfiguration:
+  type: "Android"
+  androidSdk: "C:/Program Files/Java/jdk-17"
+  applicationApk: ""
+  testApplicationApk: ""
+  disableWindowAnimation: false
+  autoGrantPermission: true
+  waitForDevicesTimeoutMillis:  60000

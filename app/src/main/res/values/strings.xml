@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Amazonaws</string>
+    <string name="teams_text">Teams</string>
+    <string name="matches_text">Matches</string>
+</resources>

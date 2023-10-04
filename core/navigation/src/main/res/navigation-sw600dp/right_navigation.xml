@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/right_navigation.xml"
+    app:startDestination="@id/matchesFragment">
+    <fragment
+        android:id="@+id/matchesFragment"
+        android:name="com.amazonaws.matches.matchesList.MatchesFragment"
+        android:label="MatchesFragment">
+        <deepLink app:uri="android-app://com.amazoneaws.app/matchesFragment?teamId={teamId}" />
+        <argument
+            android:name="teamId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_homeWrapperFragment_to_highlightPlayingFragment"
+            app:destination="@id/highlightPlayingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/highlightPlayingFragment"
+        android:name="com.amazonaws.matches.highlightPlaying.HighlightPlayingFragment"
+        android:label="HighlightPlayingFragment">
+        <deepLink app:uri="android-app://com.amazoneaws.app/highlightPlayingFragment" />
+    </fragment>
+</navigation>

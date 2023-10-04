@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_previous_matches">Previous Matches</string>
+    <string name="text_upcoming_matches">Upcoming Matches</string>
+    <string name="text_highlight">Highlight</string>
+    <string name="text_schedule_set">You have set up notifications for this match</string>
+    <string name="text_notification_per">"Please grant Notification permission from App Settings"</string>
+</resources>
