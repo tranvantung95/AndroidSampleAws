@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:network"))
     implementation(project(":core:domain"))
+    implementation(project(":core:designsystem"))
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.androidx.activity.compose)
@@ -64,6 +65,12 @@ dependencies {
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.accompanist.permissions)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.testharness)
+    implementation(libs.androidx.compose.runtime)
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
