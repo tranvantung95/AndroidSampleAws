@@ -23,8 +23,6 @@ dependencies {
     api(libs.mockk)
     api(libs.mockk.android)
     api(libs.koin.test)
-    api(libs.koin.android)
-    api(libs.koin.core)
     api(libs.koin.test.junit4)
     api(libs.androidx.navigation.test)
     api(libs.androidx.arch.test)

@@ -7,8 +7,9 @@ import com.amazonaws.network.APIInterface
 import com.amazonaws.network.model.teams.asTeams
 import com.amazonaws.network.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Inject
 
-class TeamsRepository(private val apiInterface: APIInterface) : ITeamsGateway {
+class TeamsRepository @Inject constructor(private val apiInterface: APIInterface) : ITeamsGateway {
     var dispatcher: CoroutineDispatcher? = null
     override suspend fun getTeams(): AppResult<List<TeamsModel>>? {
         return safeApiCall(dispatcher) {

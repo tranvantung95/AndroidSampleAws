@@ -7,8 +7,10 @@ import com.amazonaws.network.APIInterface
 import com.amazonaws.network.model.teamsmatches.asTeamMatches
 import com.amazonaws.network.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Inject
 
-class MatchesRepository(private val apiService: APIInterface) : IMatchesGateway {
+class MatchesRepository @Inject constructor(private val apiService: APIInterface) :
+    IMatchesGateway {
     var dispatcher: CoroutineDispatcher? = null
     override suspend fun getMatches(): AppResult<TeamMatchesModel>? {
         return safeApiCall(dispatcher) {

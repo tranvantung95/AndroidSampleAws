@@ -1,5 +1,6 @@
 plugins {
     id("amazonaws.android.library")
+    id("amazonaws.android.hilt")
 }
 
 android {
@@ -18,8 +19,6 @@ dependencies {
     implementation(project(":core:model"))
     implementation(libs.gson.conveter)
     implementation(libs.gson)
-    implementation(libs.koin.android)
-    implementation(libs.koin.core)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)

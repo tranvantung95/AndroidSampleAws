@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,13 +20,14 @@ import com.amazonaws.model.TeamsModel
 import com.amazonaws.navigation.NavigationScreenKey.TEAM_ID_FOR_MATCH_KEY
 import com.amazonaws.navigation.R
 import com.amazonawsteams.databinding.TeamsFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import com.amazonaws.navigation.R as navR
 
+@AndroidEntryPoint
 class TeamsFragment : Fragment() {
     private var viewBinding: TeamsFragmentBinding? = null
-    private val viewModel: TeamsViewModel by inject()
+    private val viewModel: TeamsViewModel by viewModels<TeamsViewModel>()
     private val teamsAdapter = TeamsAdapter {
         moveToTeamDetailScreen(it)
     }

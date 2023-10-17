@@ -2,7 +2,7 @@
 plugins {
    id("amazonaws.android.library")
    id("amazonaws.android.library.jacoco")
-
+    id("amazonaws.android.hilt")
 }
 
 android {
@@ -20,7 +20,5 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:domain"))
     implementation(project(":core:testing"))
-    implementation(libs.koin.android)
-    implementation(libs.koin.core)
     implementation(libs.core.ktx)
 }

@@ -54,7 +54,7 @@ Follows the [official architecture guidance](https://developer.android.com/topic
 
 ## DI
 
-- koin
+- hilt
 
 ## Testing
 

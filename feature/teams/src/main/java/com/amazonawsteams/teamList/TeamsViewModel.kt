@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.amazonaws.domain.GetTeamsUseCase
 import com.amazonaws.model.AppResult
 import com.amazonaws.model.UiError
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +13,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class TeamsViewModel(private val teamsUseCase: GetTeamsUseCase) : ViewModel() {
+@HiltViewModel
+class TeamsViewModel @Inject constructor(private val teamsUseCase: GetTeamsUseCase) : ViewModel() {
     var dispatcher: CoroutineDispatcher? = null
     private val _teamsState = MutableStateFlow<TeamsUiState>(TeamsUiState.Loading).map {
         when (val teams = teamsUseCase.invoke()) {

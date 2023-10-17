@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.cfg.pseudocode.and
-
 plugins {
     `kotlin-dsl`
 }
@@ -45,6 +43,18 @@ gradlePlugin {
         register("androidApplicationJacoco") {
             id = "amazonaws.android.application.jacoco"
             implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = "amazonaws.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "amazonaws.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
+        register("androidApplicationCompose") {
+            id = "amazonaws.android.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
     }
 }

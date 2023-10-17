@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -19,15 +20,14 @@ import com.amazonaws.matches.databinding.MatchesFragmentBinding
 import com.amazonaws.matches.matchesList.adapter.MatchesTabAdapter
 import com.amazonaws.navigation.NavigationScreenKey.TEAM_ID_FOR_MATCH_KEY
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import com.amazonaws.navigation.R as navR
 
+@AndroidEntryPoint
 class MatchesFragment : Fragment() {
-
-
     private var viewBinding: MatchesFragmentBinding? = null
-    private val viewModel: MatchesViewModel by inject()
+    private val viewModel: MatchesViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val teamIdFromExtra =

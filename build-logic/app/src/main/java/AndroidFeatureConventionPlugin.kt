@@ -12,6 +12,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply {
                 apply("amazonaws.android.library")
                 apply("kotlin-kapt")
+                apply("amazonaws.android.hilt")
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {
@@ -37,11 +38,9 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:common"))
                 add("implementation", project(":core:domain"))
                 add("implementation", project(":core:testing"))
-                add("implementation", libs.findLibrary("koin.android").get())
                 add("implementation", libs.findLibrary("coil").get())
                 add("implementation", libs.findLibrary("material").get())
                 add("implementation", libs.findLibrary("appcompat").get())
-                add("implementation", libs.findLibrary("koin.core").get())
                 add("implementation", libs.findLibrary("coroutines.core").get())
                 add("implementation", libs.findLibrary("lifecycle.ext").get())
                 add("implementation", libs.findLibrary("lifecycle.viewmodel").get())
