@@ -63,7 +63,7 @@ class TeamsFragment : Fragment() {
 
                         is TeamsUiState.Success -> {
                             viewBinding?.teamsLoading?.gone()
-                            teamsAdapter.submitList(it.teams)
+                          //  teamsAdapter.submitList(it.teams)
                         }
 
                         else -> {

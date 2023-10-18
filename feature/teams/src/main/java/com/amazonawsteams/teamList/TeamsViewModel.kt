@@ -25,7 +25,7 @@ class TeamsViewModel @Inject constructor(private val teamsUseCase: GetTeamsUseCa
                     TeamsUiState.EmptyList
                 } else {
                     TeamsUiState.Success(
-                        teams = teams.data?.map { TeamItemForListView(it) } ?: listOf()
+                        teams = teams.data ?: listOf()
                     )
                 }
             }

@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.kotlin
+import org.gradle.kotlin.dsl.project
 
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -38,6 +38,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:common"))
                 add("implementation", project(":core:domain"))
                 add("implementation", project(":core:testing"))
+                add("implementation", project(":core:designsystem"))
                 add("implementation", libs.findLibrary("coil").get())
                 add("implementation", libs.findLibrary("material").get())
                 add("implementation", libs.findLibrary("appcompat").get())
@@ -68,6 +69,14 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("androidx-arch-test").get())
                 add("testImplementation", libs.findLibrary("coroutine-test").get())
                 add("testImplementation", libs.findLibrary("turbine").get())
+
+                add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
+                add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
+                add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
+                add("implementation", libs.findLibrary("androidx.compose.foundation").get())
+                add("implementation", libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+                add("implementation", libs.findLibrary("coil.kt.compose").get())
+                add("implementation", libs.findLibrary("coil.kt.svg").get())
 
             }
         }

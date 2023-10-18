@@ -1,6 +1,16 @@
 package com.example.amazonaws.ui
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,9 +41,10 @@ import com.amazonaws.designsystem.theme.component.AwsNavigationBar
 import com.amazonaws.designsystem.theme.component.AwsNavigationBarItem
 import com.example.amazonaws.component.AppBackground
 import com.example.amazonaws.component.AppGradientBackground
+import com.example.amazonaws.navigation.AwsNavHost
 import com.example.amazonaws.navigation.TopLevelDestination
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun AmazonAwsApp(
     windowSizeClass: WindowSizeClass,
@@ -55,9 +66,33 @@ fun AmazonAwsApp(
                 snackbarHost = { SnackbarHost(snackbarHostState) },
                 bottomBar = {
                     if (appState.shouldShowBottomBar) {
-
+                        AppBottomBar(
+                            modifier = Modifier,
+                            destinations = appState.topLevelDestinations,
+                            currentDestination = appState.currentDestination,
+                            onNavigateToDestination = {
+                                appState.navigateToTopLevelDestination(
+                                    it
+                                )
+                            }
+                        )
                     }
                 }) { padding ->
+                Row(
+                    Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .consumeWindowInsets(padding)
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(
+                                WindowInsetsSides.Horizontal,
+                            ),
+                        ),
+                ) {
+                    Column(Modifier.fillMaxSize()) {
+                        AwsNavHost(appState = appState)
+                    }
+                }
 
             }
         }
@@ -68,14 +103,11 @@ fun AmazonAwsApp(
 fun AppBottomBar(
     destinations: List<TopLevelDestination>,
     currentDestination: NavDestination?,
-    destinationsWithUnreadResources: Set<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
-
     modifier: Modifier = Modifier,
 ) {
     AwsNavigationBar(modifier = Modifier) {
         destinations.forEach { destination ->
-            val hasUnread = destinationsWithUnreadResources.contains(destination)
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
             AwsNavigationBarItem(
                 selected = selected,
@@ -95,12 +127,12 @@ fun AppBottomBar(
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
-                modifier = if (hasUnread) Modifier.notificationDot() else Modifier,
+                modifier = modifier,
             )
         }
     }
-
 }
+
 
 private fun Modifier.notificationDot(): Modifier =
     composed {

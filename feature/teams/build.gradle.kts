@@ -1,6 +1,7 @@
 plugins {
     id("amazonaws.android.feature")
     id("amazonaws.android.library.jacoco")
+    id("amazonaws.android.library.compose")
 }
 
 android {
@@ -15,4 +16,5 @@ android {
 
 dependencies {
     implementation(project(":core:navigation"))
+    implementation(libs.androidx.activity.compose)
 }

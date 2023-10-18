@@ -10,6 +10,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
+import com.amazonawsteams.teamList.navigation.navigationToTeams
+import com.amazonawsteams.teamList.navigation.teamsNavigationRoute
 import com.example.amazonaws.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
 
@@ -39,14 +42,40 @@ class AppState(
     val coroutineScope: CoroutineScope,
     val windowSizeClass: WindowSizeClass
 ) {
+    /**
+     * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
+     * route.
+     */
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
     val currentDestination: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
     val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            else -> null
+            teamsNavigationRoute -> TopLevelDestination.TEAMS
+            else -> {
+                null
+            }
+
         }
+
+    fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
+        val topLevelNavOptions = navOptions {
+            // Avoid multiple copies of the same destination when
+            // reselecting the same item
+            launchSingleTop = true
+            // Restore state when reselecting a previously selected item
+            restoreState = true
+        }
+        when (topLevelDestination) {
+            TopLevelDestination.TEAMS -> navController.navigationToTeams(topLevelNavOptions)
+            else -> {
+
+            }
+        }
+    }
 }
