@@ -1,6 +1,7 @@
 
 plugins {
     id("amazonaws.android.feature")
+    id("amazonaws.android.library.compose")
     id("amazonaws.android.library.jacoco")
 }
 

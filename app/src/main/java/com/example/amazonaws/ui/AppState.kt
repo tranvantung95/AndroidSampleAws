@@ -7,10 +7,12 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.amazonaws.matches.navigation.navigationToMatches
 import com.amazonawsteams.teamList.navigation.navigationToTeams
 import com.amazonawsteams.teamList.navigation.teamsNavigationRoute
 import com.example.amazonaws.navigation.TopLevelDestination
@@ -67,12 +69,16 @@ class AppState(
         val topLevelNavOptions = navOptions {
             // Avoid multiple copies of the same destination when
             // reselecting the same item
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
             launchSingleTop = true
             // Restore state when reselecting a previously selected item
             restoreState = true
         }
         when (topLevelDestination) {
             TopLevelDestination.TEAMS -> navController.navigationToTeams(topLevelNavOptions)
+            TopLevelDestination.MATCHES -> navController.navigationToMatches(topLevelNavOptions)
             else -> {
 
             }

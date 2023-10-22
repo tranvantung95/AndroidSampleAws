@@ -17,7 +17,7 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
     val uiState: StateFlow<MainActivityUiState> = flowOf(
         MainActivityUiState.Success(
             UserData(
-                darkThemeConfig = DarkThemeConfig.DARK,
+                darkThemeConfig = DarkThemeConfig.LIGHT,
                 themeBrand = ThemeBrand.ANDROID,
                 false
             )

@@ -77,6 +77,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.compose.ui.tooling.preview").get())
                 add("implementation", libs.findLibrary("coil.kt.compose").get())
                 add("implementation", libs.findLibrary("coil.kt.svg").get())
+                add("implementation", libs.findLibrary("accompanist.pager").get())
+                add("implementation", libs.findLibrary("accompanist.pager.indicator").get())
 
             }
         }
