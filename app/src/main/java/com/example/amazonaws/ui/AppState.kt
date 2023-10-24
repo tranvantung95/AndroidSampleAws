@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.amazonaws.matches.navigation.matchesNavigationRouter
 import com.amazonaws.matches.navigation.navigationToMatches
 import com.amazonawsteams.teamList.navigation.navigationToTeams
 import com.amazonawsteams.teamList.navigation.teamsNavigationRoute
@@ -56,9 +57,15 @@ class AppState(
     val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
+    private val routes = TopLevelDestination.values().map { it.router }
+
+    val hideBottomBarWithNestedScreen: Boolean
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination?.route in routes
+
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
             teamsNavigationRoute -> TopLevelDestination.TEAMS
+            matchesNavigationRouter -> TopLevelDestination.MATCHES
             else -> {
                 null
             }

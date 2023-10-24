@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Tab
+import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,8 +27,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun MatchesRouter(
-    onHighlightClick: (String) -> Unit, viewModel: MatchesViewModel = hiltViewModel()
+    onHighlightClick: (String) -> Unit,
+    viewModel: MatchesViewModel = hiltViewModel(),
+    teamId: String? = null
 ) {
+    viewModel.setMatchesFilterType(teamId)
     val matchesUiState by viewModel.matchesState.collectAsStateWithLifecycle()
     MatchesScreen(onHighlightClick, Modifier, matchesUiState)
 }
@@ -36,7 +39,9 @@ internal fun MatchesRouter(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MatchesScreen(
-    onHighlightClick: (String) -> Unit, modifier: Modifier, matchesUiState: MatchesUiState?
+    onHighlightClick: (String) -> Unit,
+    modifier: Modifier,
+    matchesUiState: MatchesUiState?
 ) {
     val isLoading = matchesUiState is MatchesUiState.Loading
     ReportDrawnWhen {
@@ -44,7 +49,6 @@ fun MatchesScreen(
     }
     when (matchesUiState) {
         MatchesUiState.Loading, MatchesUiState.EmptyList -> Unit
-
         is MatchesUiState.Success -> {
             val tabData = listOf(MatchesTabName.Previous, MatchesTabName.Upcoming)
             val pageState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0f)

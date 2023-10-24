@@ -11,10 +11,14 @@ import com.amazonaws.matches.VideoPlayerScreen
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
-const val matchesNavigationRouter = "matches_router/"
+const val matchesNavigationRouter = "matches_router?teamId={teamId}"
 const val matchesVideoNavigationRouter = "matches_router_video_player/{VIDEO_URL}"
-fun NavController.navigationToMatches(navOptions: NavOptions? = null) {
-    this.navigate(matchesNavigationRouter, navOptions)
+
+fun NavController.navigationToMatches(navOptions: NavOptions? = null, teamId: String? = null) {
+    this.navigate(
+        matchesNavigationRouter.replace("{teamId}", teamId.orEmpty()),
+        navOptions = navOptions
+    )
 }
 
 fun NavController.navigationToVideoPlay(navOptions: NavOptions? = null, videoUrl: String) {
@@ -31,10 +35,20 @@ fun NavController.navigationToVideoPlay(navOptions: NavOptions? = null, videoUrl
 fun NavGraphBuilder.matchesScreen(onMatchesClick: (String) -> Unit) {
     composable(
         route = matchesNavigationRouter,
-    ) {
-        MatchesRouter(onHighlightClick = onMatchesClick)
+        arguments = listOf(navArgument("teamId") {
+            type = NavType.StringType
+            defaultValue = null
+            nullable = true
+        })
+    ) { backStackEntry ->
+        MatchesRouter(
+            onHighlightClick = onMatchesClick,
+            teamId = backStackEntry.arguments?.getString("teamId")
+        )
     }
+}
 
+fun NavGraphBuilder.playVideoScreen() {
     composable(
         route = matchesVideoNavigationRouter,
         arguments = listOf(navArgument("VIDEO_URL") {

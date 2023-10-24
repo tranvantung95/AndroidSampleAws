@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,12 +41,17 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import com.amazonaws.designsystem.theme.GradientColors
 import com.amazonaws.designsystem.theme.component.AwsNavigationBar
 import com.amazonaws.designsystem.theme.component.AwsNavigationBarItem
+import com.amazonaws.designsystem.theme.component.TopAppBar
+import com.amazonaws.designsystem.theme.icons.AppIcons
 import com.example.amazonaws.component.AppBackground
 import com.example.amazonaws.component.AppGradientBackground
 import com.example.amazonaws.navigation.AwsNavHost
 import com.example.amazonaws.navigation.TopLevelDestination
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class)
+@OptIn(
+    ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class,
+    ExperimentalMaterial3Api::class
+)
 @Composable
 fun AmazonAwsApp(
     windowSizeClass: WindowSizeClass,
@@ -65,7 +72,9 @@ fun AmazonAwsApp(
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 snackbarHost = { SnackbarHost(snackbarHostState) },
                 bottomBar = {
-                    if (appState.shouldShowBottomBar) {
+                    if (appState.shouldShowBottomBar
+                        //&& appState.hideBottomBarWithNestedScreen
+                        ) {
                         AppBottomBar(
                             modifier = Modifier,
                             destinations = appState.topLevelDestinations,
@@ -90,6 +99,21 @@ fun AmazonAwsApp(
                         ),
                 ) {
                     Column(Modifier.fillMaxSize()) {
+                        val destination = appState.currentTopLevelDestination
+                        if (destination != null) {
+                            TopAppBar(
+                                title = destination.titleTextId,
+                                leftIcon = AppIcons.Search,
+                                actionIcon = AppIcons.Settings,
+                                onNavigationClick = { },
+                                onActionClick = { },
+                                navigationIconContentDescription = destination.name,
+                                actionIconContentDescription = destination.name,
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.Transparent,
+                                )
+                            )
+                        }
                         AwsNavHost(appState = appState)
                     }
                 }
@@ -126,7 +150,6 @@ fun AppBottomBar(
                         contentDescription = null,
                     )
                 },
-                label = { Text(stringResource(destination.iconTextId)) },
                 modifier = modifier,
             )
         }

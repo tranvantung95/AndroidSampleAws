@@ -1,7 +1,7 @@
 package com.amazonawsteams.teamList
 
 import androidx.activity.compose.ReportDrawnWhen
-
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -57,11 +57,10 @@ fun TeamsScreen(
             LazyColumn {
                 items(teams.size) {
                     val teams = teams.getOrNull(it)
-                    TeamRow(teams, modifier)
+                    TeamRow(teams, onTeamClick)
                 }
             }
         }
-
         else -> {
 
         }
@@ -70,12 +69,15 @@ fun TeamsScreen(
 }
 
 @Composable
-fun TeamRow(teamModel: TeamsModel?, modifier: Modifier) {
+fun TeamRow(teamModel: TeamsModel?, onTeamClick: (String) -> Unit) {
     Row(
         modifier = Modifier
             .height(IntrinsicSize.Min)
             .fillMaxWidth()
-            .padding(bottom = 10.dp),
+            .padding(bottom = 10.dp)
+            .clickable {
+                onTeamClick.invoke(teamModel?.id.orEmpty())
+            },
     ) {
         AsyncImage(
             model = teamModel?.logo.orEmpty(),

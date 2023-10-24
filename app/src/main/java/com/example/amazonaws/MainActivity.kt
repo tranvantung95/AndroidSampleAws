@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 systemUiController.systemBarsDarkContentEnabled = !darkTheme
                 onDispose {}
             }
-            CompositionLocalProvider() {
+            CompositionLocalProvider {
                 AppTheme(
                     darkTheme = darkTheme,
                     androidTheme = shouldUseAndroidTheme(uiState),
