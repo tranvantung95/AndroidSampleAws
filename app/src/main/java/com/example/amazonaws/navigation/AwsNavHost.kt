@@ -3,11 +3,13 @@ package com.example.amazonaws.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.amazonaws.matches.navigation.matchesNestedScreen
 import com.amazonaws.matches.navigation.matchesScreen
-import com.amazonaws.matches.navigation.navigationToMatches
+import com.amazonaws.matches.navigation.navigationToNestedMatches
 import com.amazonaws.matches.navigation.navigationToVideoPlay
-import com.amazonaws.matches.navigation.playVideoScreen
+import com.amazonawsteams.teamList.navigation.navigationToNestedTeams
 import com.amazonawsteams.teamList.navigation.teamsNavigationRoute
+import com.amazonawsteams.teamList.navigation.teamsNestedScreen
 import com.amazonawsteams.teamList.navigation.teamsScreen
 import com.example.amazonaws.ui.AppState
 
@@ -19,13 +21,21 @@ fun AwsNavHost(
 ) {
     val navController = appState.navController
     NavHost(navController = navController, startDestination = startDestination, modifier) {
-        teamsScreen {
-            navController.navigationToMatches(teamId = it)
-        }
-        matchesScreen { videoUrl ->
+        teamsScreen(
+            onTeamClick = {
+                navController.navigationToNestedTeams()
+            },
+        )
+        matchesScreen(onHighlightClick = { videoUrl ->
             navController.navigationToVideoPlay(navOptions = null, videoUrl)
-        }
-        playVideoScreen()
-    }
+        }, onDetailClick = {
+            navController.navigationToNestedMatches()
+        })
 
+        teamsNestedScreen(goToMatchesDetail = {
+            navController.navigationToNestedMatches()
+        })
+        matchesNestedScreen(navController)
+    }
 }
+

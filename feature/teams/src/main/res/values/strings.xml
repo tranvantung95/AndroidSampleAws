@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="teams_text">Teams</string>
-
-
+    <string name="empty_screen_title">TEAMS Screen under construction</string>
+    <string name="empty_screen_subtitle">TEAMS screen is still under construction. This sample will help you learn about adaptive layouts in Jetpack Compose</string>
 </resources>

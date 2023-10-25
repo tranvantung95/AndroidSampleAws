@@ -86,9 +86,6 @@ class AppState(
         when (topLevelDestination) {
             TopLevelDestination.TEAMS -> navController.navigationToTeams(topLevelNavOptions)
             TopLevelDestination.MATCHES -> navController.navigationToMatches(topLevelNavOptions)
-            else -> {
-
-            }
         }
     }
 }

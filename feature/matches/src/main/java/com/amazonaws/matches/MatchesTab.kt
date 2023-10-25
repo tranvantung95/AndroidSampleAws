@@ -1,6 +1,7 @@
 package com.amazonaws.matches
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,8 @@ fun MatchesTab(
     matchesUiState: MatchesUiState.Success,
     modifier: Modifier,
     onHighlightClick: (String) -> Unit,
-    onScheduleClick: (String) -> Unit
+    onScheduleClick: (String) -> Unit,
+    onDetailClick: () -> Unit
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         if (matchesTabName == MatchesTabName.Previous) {
@@ -48,7 +50,7 @@ fun MatchesTab(
                         onHighlightClick.invoke(it)
                     }, {
 
-                    }
+                    }, onDetailClick = onDetailClick
                 )
             }
         } else {
@@ -59,7 +61,7 @@ fun MatchesTab(
 
                     }, { it ->
                         onScheduleClick.invoke(it)
-                    }
+                    }, onDetailClick = onDetailClick
                 )
             }
         }
@@ -70,13 +72,16 @@ fun MatchesTab(
 @Composable
 fun MatchesRow(
     matchesModel: MatchesModel?, modifier: Modifier, onHighlightClick: (String) -> Unit,
-    onScheduleClick: (String) -> Unit
+    onScheduleClick: (String) -> Unit, onDetailClick: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = modifier
             .fillMaxWidth()
-            .padding(5.dp),
+            .padding(5.dp)
+            .clickable {
+                onDetailClick.invoke()
+            },
         shape = RoundedCornerShape(4.dp)
     ) {
         Row(
@@ -135,7 +140,9 @@ fun PreviewPreviousMatchesRow() {
             winner = "Home",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             date = "11/11/2023"
-        ), modifier = Modifier,{
+        ), modifier = Modifier, {
+
+        }, {
 
         },{
 
@@ -157,6 +164,8 @@ fun PreviewUpCommingMatchesRow() {
 
         }, {
 
+        },{
+
         }
     )
 }
@@ -172,6 +181,8 @@ fun PreviewMatchesTab() {
                 Modifier, {
 
                 }, {
+
+                },{
 
                 }
             )

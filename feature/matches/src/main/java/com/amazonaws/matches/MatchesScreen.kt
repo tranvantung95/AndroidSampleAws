@@ -29,11 +29,12 @@ import kotlinx.coroutines.launch
 internal fun MatchesRouter(
     onHighlightClick: (String) -> Unit,
     viewModel: MatchesViewModel = hiltViewModel(),
-    teamId: String? = null
+    teamId: String? = null,
+    onDetailClick: () -> Unit
 ) {
     viewModel.setMatchesFilterType(teamId)
     val matchesUiState by viewModel.matchesState.collectAsStateWithLifecycle()
-    MatchesScreen(onHighlightClick, Modifier, matchesUiState)
+    MatchesScreen(onHighlightClick, Modifier, matchesUiState, onDetailClick)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -41,7 +42,8 @@ internal fun MatchesRouter(
 fun MatchesScreen(
     onHighlightClick: (String) -> Unit,
     modifier: Modifier,
-    matchesUiState: MatchesUiState?
+    matchesUiState: MatchesUiState?,
+    onDetailClick: () -> Unit
 ) {
     val isLoading = matchesUiState is MatchesUiState.Loading
     ReportDrawnWhen {
@@ -78,7 +80,7 @@ fun MatchesScreen(
                             onHighlightClick.invoke(videoUrl)
                         }, {
 
-                        })
+                        }, onDetailClick = onDetailClick)
                     }
                 }
             }
@@ -104,7 +106,9 @@ fun PreviewMatchesTablayout() {
 
                 },
                 modifier = Modifier,
-                matchesUiState = MatchesUiState.Success(null)
+                matchesUiState = MatchesUiState.Success(null), {
+
+                }
             )
         }
     }

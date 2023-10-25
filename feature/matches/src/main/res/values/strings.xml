@@ -6,4 +6,6 @@
     <string name="text_highlight">Highlight</string>
     <string name="text_schedule_set">You have set up notifications for this match</string>
     <string name="text_notification_per">"Please grant Notification permission from App Settings"</string>
+    <string name="matches_empty_screen_title">Screen MATCHES SCREEN under construction</string>
+    <string name="matches_empty_screen_subtitle">This MATCHES SCREEN  is still under construction. This sample will help you learn about adaptive layouts in Jetpack Compose</string>
 </resources>
