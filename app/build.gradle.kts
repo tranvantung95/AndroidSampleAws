@@ -48,7 +48,6 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":core:navigation"))
     implementation(project(":core:timeschedule"))
     implementation(project(":feature:teams"))
     implementation(project(":feature:matches"))

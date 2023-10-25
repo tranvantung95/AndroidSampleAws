@@ -8,7 +8,6 @@ import com.amazonaws.domain.GetTeamsUseCase
 import com.amazonaws.model.AppResult
 import com.amazonaws.testing.data.TestData
 import com.amazonawsteams.screen.TeamsFragmentScreen
-import com.amazonawsteams.teamList.TeamsFragment
 import com.amazonawsteams.teamList.TeamsViewModel
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import io.mockk.coEvery
@@ -21,7 +20,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module

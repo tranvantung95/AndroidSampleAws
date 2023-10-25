@@ -17,7 +17,6 @@ android {
 
 dependencies {
     implementation(project(":core:timeschedule"))
-    implementation(project(":core:navigation"))
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.common)
     implementation(libs.media3.ui)
